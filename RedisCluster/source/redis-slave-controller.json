@@ -1,0 +1,36 @@
+{
+   "kind":"ReplicationController",
+   "apiVersion":"v1",
+   "metadata":{
+      "name":"redis-slave",
+      "labels":{
+         "name":"redis-slave"
+      }
+   },
+   "spec":{
+      "replicas":2,
+      "selector":{
+         "name":"redis-slave"
+      },
+      "template":{
+         "metadata":{
+            "labels":{
+               "name":"redis-slave"
+            }
+         },
+         "spec":{
+            "containers":[
+               {
+                  "name":"slave",
+                  "image":"kingboung/redis",
+                  "ports":[
+                     {
+                        "containerPort":6379
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   }
+}
