@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import com.cluster.server.model.Response;
 import com.cluster.server.model.User;
 
-@Path("/Users")
+@Path("/users")
 @Consumes({"application/xml","application/json"})
 @Produces({"application/xml","application/json"})
 public interface UserPort {
@@ -19,6 +19,7 @@ public interface UserPort {
 	
 	/*
 	 * 实现用户注册功能
+	 * @return Response
 	 */
 	@POST
 	@Path("/register")
@@ -26,16 +27,23 @@ public interface UserPort {
 	@Produces({"application/xml","application/json"})
 	public Response register(User user);
 	
+	/*
+	 * 实现用户登录功能
+	 * @return Response
+	 */
 	@POST
 	@Path("/login")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
 	public Response login(User user);
 	
-	
+	/*
+	 * 实现通过用户名获取用户信息的功能
+	 * @return Response
+	 */
 	@GET
-	@Path("/user/{id}")
+	@Path("/getUser/{name}")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public User getUserInformation(@PathParam("id") String id);
+	public User getUserInformation(@PathParam("name") String name);
 }

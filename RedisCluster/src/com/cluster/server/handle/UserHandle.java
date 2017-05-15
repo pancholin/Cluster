@@ -18,6 +18,7 @@ public class UserHandle implements UserPort{
 
 	@Override
 	public Response register(User user) {
+		System.out.println("http://localhost:8080/RedisCluster/restfulService/users/register");
 		// TODO Auto-generated method stub
 		UserDao userdao=new UserDao();
 		SqlResponse sqlres=userdao.insert(user);
@@ -36,14 +37,12 @@ public class UserHandle implements UserPort{
 	
 	
 	@Override
-	public User getUserInformation(String id) {
+	public User getUserInformation(String name) {
 		// TODO Auto-generated method stub
 		
-		
-		User user=new User();
-		user.setName("hefl");
-		user.setEmail("fafafe");
-		user.setPassword("name");
+		System.out.println("http://localhost:8080/RedisCluster/restfulService/users/getUser/{name}");
+		UserDao userdao=new UserDao();
+		User user=userdao.getUserByname(name);
 		return user;
 	}
 
@@ -52,6 +51,7 @@ public class UserHandle implements UserPort{
 
 	@Override
 	public Response login(User user) {
+		System.out.println("http://localhost:8080/RedisCluster/restfulService/users/login");
 		UserDao userdao=new UserDao();
 		User getuser=userdao.getUserByname(user.getName());
 		Response res=new Response();

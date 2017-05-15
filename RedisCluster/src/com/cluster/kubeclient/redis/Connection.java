@@ -5,43 +5,54 @@ import java.sql.SQLException;
 
 import redis.clients.jedis.Client;
 import redis.clients.jedis.Jedis;
-
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.exceptions.JedisAskDataException;
+import redis.clients.jedis.JedisPoolConfig;
+
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 
 
 public class Connection {
-	public Jedis getConnection() {
-		Jedis jedis=null;
-		jedis= new Jedis("120.24.72.117", 6379);
-		  System.out.println("Connection to server sucessfully");
-		
-	  return jedis;
+	public JedisPool getPool(String url) {
+        JedisPoolConfig config = new JedisPoolConfig();
+		config.setMaxActive(100);
+		config.setMaxIdle(20);
+		config.setMaxWait(1000l);	
+		JedisPool pool = new JedisPool(config,url,6379);
+	  return pool;
 	}
- 
+
      	     
 	/*
 	 * get info
 	 */
-
-	@SuppressWarnings("finally")
 	public String getRedisInfo()  {
-		Jedis jedis= getConnection(); 
+		
+		/*boolean borrowOrOprSuccess = true;
 		String info=null;
-		//Jedis jedis = null;
-			try{
-				  //jedis= new Jedis("120.24.72.117", 6379);
-				  System.out.println("Connection to server sucessfully");
-				  Client client=jedis.getClient();
-				  info = jedis.info();
-			
-			}catch (JedisAskDataException e) {
-			    System.out.println("¡¨Ω”“Ï≥£");
-			}finally{
-				return info;
-			}			
-					
+		JedisPool pool=getPool("120.24.72.117");
+		Jedis jedis=null;
+		try {
+		  
+		} 
+		catch (JedisConnectionException e) {
+			borrowOrOprSuccess = false;
+			if (jedis != null)
+				pool.returnBrokenResource(jedis);
+ 
+		} 
+		finally {
+			if (borrowOrOprSuccess)
+				pool.returnResource(jedis);
+		}*/
+		JedisPoolConfig config = new JedisPoolConfig();
+		config.setMaxActive(100);
+		config.setMaxIdle(20);
+		config.setMaxWait(1000l);	
+		Call caller = new Call();  
+        caller.setCallFunc(new JedisPool(config,"120.24.72.117",6379));  
+        String info=caller.call(); 
+		return info;				
 	}
 	
 	

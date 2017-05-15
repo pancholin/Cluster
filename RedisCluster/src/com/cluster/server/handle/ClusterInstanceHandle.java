@@ -3,8 +3,14 @@ package com.cluster.server.handle;
 
 import java.util.Map;
 
+import com.cluster.kubeclient.connect.JerseyRestfulClient;
+import com.cluster.kubeclient.connect.Params;
+import com.cluster.kubeclient.connect.ResourceType;
+import com.cluster.kubeclient.connect.RestfulClient;
+import com.cluster.kubeclient.handle.KubeUtil;
 import com.cluster.kubeclient.redis.RedisMonitor;
-import com.cluster.server.model.Redis;
+import com.cluster.server.model.RedisCluster;
+import com.cluster.server.model.RedisInformation;
 import com.cluster.server.port.ClusterInstancePort;
 
 import redis.clients.jedis.Jedis;
@@ -16,28 +22,15 @@ public class ClusterInstanceHandle implements ClusterInstancePort {
 
 	
 	@Override
-	public Redis getInstance()  {
+	public RedisInformation getInstance()  {
+		System.out.println("http://localhost:8080/RedisCluster/restfulService/instances/getInstance");
 		// TODO Auto-generated method stub
-		Redis redis=new Redis();
+		RedisInformation redis=new RedisInformation();
         RedisMonitor redisMonitor=new RedisMonitor();
      
 	    Map map=redisMonitor.getRedisInfo();
 		
-		
-		/* JedisPoolConfig config = new JedisPoolConfig();
-		  //修改最大连接数
-		   config.setMaxTotal(20);
-		 //声明一个线程池
-		  JedisPool pool = new JedisPool(config,"120.24.72.117",6379);
-		 
-		 //获得jedis对象
-		 Jedis jedis = pool.getResource();
-		
-		//Jedis jedis = new Jedis("120.24.72.117", 6379);
-		jedis.set("foo", "bar");
-		String value = jedis.get("foo");*/
-		
-        redis.setConnection_blocker(/*map.get("connected_clients").toString()*/"noe");
+        redis.setConnection_blocker(map.get("connected_clients").toString());
         redis.setConnection_connected(/*map.get("blocked_clients").toString()*/"mpp");
         redis.setCpu("noe");
         redis.setFlow_in("none");
@@ -53,9 +46,10 @@ public class ClusterInstanceHandle implements ClusterInstancePort {
 	}
 
 	@Override
-	public Redis get() {
+	public RedisInformation get() {
+		System.out.println("http://localhost:8080/RedisCluster/restfulService/instances/get");
 		// TODO Auto-generated method stub
-		Redis redis=new Redis();
+		RedisInformation redis=new RedisInformation();
         RedisMonitor redisMonitor=new RedisMonitor();
         Map map = redisMonitor.getRedisInfo();
 		
@@ -72,6 +66,23 @@ public class ClusterInstanceHandle implements ClusterInstancePort {
         redis.setMemory_total(map.get("total_system_memory_human").toString());
         redis.setMemory_using(map.get("used_memory_rss_human").toString());
 		return redis;
+	}
+
+	@Override
+	public RedisCluster createCluster() {
+		System.out.println("http://localhost:8080/RedisCluster/restfulService/instances/createCluster");
+		RedisCluster redisCluster=new RedisCluster();
+		RestfulClient _restfulClient=new JerseyRestfulClient("http://123.207.6.42:8080/api/v1");
+		Params params=new Params();
+		params.setResourceType(ResourceType.PELICATIONCONTROLLERS);
+		KubeUtil kubeUtil=new KubeUtil();
+		String hello=kubeUtil.ReadFile("source/frontend-controller.json");	
+	    params.setJson(hello);
+	    System.out.println(hello);
+	    params.setNamespace("default");
+	    
+	    System.out.print(_restfulClient.create(params));		
+		return redisCluster;
 	}
 
 }

@@ -14,7 +14,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd  
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
 <import resource="classpath:META-INF/cxf/cxf.xml" />
-<import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
+<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  
      
         <bean id="clusterServer" class="com.cluster.server.handle.ClusterInstanceHandle"></bean>
         <bean id="userServer" class="com.cluster.server.handle.UserHandle"/>

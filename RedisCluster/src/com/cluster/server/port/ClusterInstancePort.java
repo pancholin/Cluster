@@ -7,7 +7,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.cluster.server.model.Redis;
+import com.cluster.server.model.RedisCluster;
+import com.cluster.server.model.RedisInformation;
 
 
 
@@ -20,13 +21,19 @@ public interface ClusterInstancePort {
 	@Path("/getInstance")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces({"application/xml","application/json"})
-	public Redis getInstance() ;
+	public RedisInformation getInstance() ;
 	
 	
 	@GET
 	@Path("/get")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public Redis get();
+	public RedisInformation get();
+	
+	@POST
+	@Path("/createCluster")
+	@Consumes({"application/xml","application/json"})
+	@Produces({"application/xml","application/json"})
+	public RedisCluster createCluster();
 	
 }
