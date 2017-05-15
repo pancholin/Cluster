@@ -1,37 +1,47 @@
 package com.cluster.kubeclient.redis;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import redis.clients.jedis.Client;
 import redis.clients.jedis.Jedis;
 
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisAskDataException;
+
+
+
 public class Connection {
-	public static void main(String [] args){
-		   
-	     System.out.println(getRedisInfo());
-	
+	public Jedis getConnection() {
+		Jedis jedis=null;
+		jedis= new Jedis("120.24.72.117", 6379);
+		  System.out.println("Connection to server sucessfully");
+		
+	  return jedis;
 	}
-	public void connection(){
-		 //Connecting to Redis server on localhost 
-		 Jedis jedis = new Jedis("120.24.72.117"); 
-	      System.out.println("Connection to server sucessfully"); 
-	      jedis.set("runoobkey", "Redis tutorial");
-	      // 获取存储的数据并输出
-	      System.out.println("Stored string in redis:: "+ jedis.get("runoobkey"));
-	      
-	      //check whether server is running or not 
-	     System.out.println("Server is running: "+jedis.ping()); 
-	}
-	public static String getRedisInfo() {
-		Jedis jedis = new Jedis("120.24.72.117");
-		try {
+ 
+     	     
+	/*
+	 * get info
+	 */
+
+	@SuppressWarnings("finally")
+	public String getRedisInfo()  {
+		Jedis jedis= getConnection(); 
+		String info=null;
+		//Jedis jedis = null;
+			try{
+				  //jedis= new Jedis("120.24.72.117", 6379);
+				  System.out.println("Connection to server sucessfully");
+				  Client client=jedis.getClient();
+				  info = jedis.info();
 			
-			Client client = jedis.getClient();
-			client.info();
-			String info = client.getBulkReply();
-			return info;
-		} finally {
-			// 返还到连接池
-			jedis.close();
-		}
+			}catch (JedisAskDataException e) {
+			    System.out.println("连接异常");
+			}finally{
+				return info;
+			}			
+					
 	}
 	
 	

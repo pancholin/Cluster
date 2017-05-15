@@ -2,7 +2,7 @@ package com.cluster.server.pojo;
 
 public class Constant {
 	
-	public  final String DB="kubeCluster";//在MySQL中定义的数据库名字
+	public  final String DB="kubecluster";//在MySQL中定义的数据库名字
 	public  final String USER_TABLE="user";//在MySQL中定义的表
 	
 	public  final String JDBC_DRIVER="com.mysql.jdbc.Driver";//驱动器

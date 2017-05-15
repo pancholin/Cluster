@@ -16,12 +16,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
 <import resource="classpath:META-INF/cxf/cxf.xml" />
 <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
      
-        
+        <bean id="clusterServer" class="com.cluster.server.handle.ClusterInstanceHandle"></bean>
         <bean id="userServer" class="com.cluster.server.handle.UserHandle"/>
          <bean id="testServer" class="com.cluster.server.handle.TestHandle"/>
         <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        
       <jaxrs:server id="userService" address="/restfulService">
         <jaxrs:serviceBeans>
+          <ref bean="clusterServer"></ref>
           <ref bean="testServer"/>
           <ref bean="userServer"/>
         </jaxrs:serviceBeans>
@@ -33,4 +35,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
             <entry key="xml" value="application/xml" />
         </jaxrs:extensionMappings>
        </jaxrs:server>
+       
+       
 </beans>

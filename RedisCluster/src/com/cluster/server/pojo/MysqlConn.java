@@ -8,7 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.cluster.server.model.User;
+
 
 
 
@@ -53,20 +55,43 @@ public class MysqlConn {
 			while(rs.next()){
 				User user=new User();
 				System.out.println(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3));	
-				user.setName(rs.getString(0));
-				user.setPassword(rs.getString(1));
-				user.setEmail(rs.getString(2));
+				user.setName(rs.getString(1));
+				user.setPassword(rs.getString(2));
+				user.setEmail(rs.getString(3));
+				list.add(user);
 			};
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-		
+		    } catch (SQLException e) {
+			  e.printStackTrace();
+			  }
+		     return list;
 		}
 		else{
 			return null;
 		}	
 	};
+	
+	public SqlResponse insert(String sql){
+		SqlResponse re=new SqlResponse();
+		Connection con=getCon();
+		try {
+			Statement st=con.createStatement();
+			st.execute(sql);
+			re.setStateCode(200);
+			
+            re.setMessage("success");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("error!插入失败");
+			re.setStateCode(400);
+			re.setMessage(e.toString());
+			return re;
+			
+		}
+		close();
+		return re;
+	};
+	
 	
 	/*
 	 * 关闭数据库连接
