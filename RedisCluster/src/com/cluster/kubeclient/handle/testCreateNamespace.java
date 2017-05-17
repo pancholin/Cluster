@@ -24,14 +24,14 @@ public class testCreateNamespace {
 		System.out.println("hello");
 		RestfulClient _restfulClient=new JerseyRestfulClient("http://123.207.6.42:8080/api/v1");
 		Params params=new Params();
-		params.setResourceType(ResourceType.PELICATIONCONTROLLERS);
+		params.setResourceType(ResourceType.NAMESPACES);
 		//params.setJson(Utils("namespace.json"))
 		String str="{\"kind\":\"Namespace\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"linpanxue-sample\"}}";
-		String hello=ReadFile("source/frontend-controller.json");
+		//String hello=ReadFile("source/frontend-controller.json");
 		//System.out.println(hello);
 		
-	    params.setJson(hello);
-	    System.out.println(hello);
+	    params.setJson(str);
+	   // System.out.println(hello);
 	    //JSONObject json=new JSONObject(hello);
 	    //params.setJson(str);
 	    //System.out.println(json.get("kind"));

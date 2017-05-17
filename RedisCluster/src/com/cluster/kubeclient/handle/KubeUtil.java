@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class KubeUtil {
+	public static String Url="http://120.24.72.117:8086/api/v1";
+	
+	/*
+	 * 输入文件地址，读取文件以字符串方式输出
+	 */
 	public  String ReadFile(String path) {  
         File file = new File(path);  
         BufferedReader reader = null;  
@@ -29,5 +34,11 @@ public class KubeUtil {
         }  
         return laststr;  
     }  
+	
+	
+	
+	
+	
+	
 
 }

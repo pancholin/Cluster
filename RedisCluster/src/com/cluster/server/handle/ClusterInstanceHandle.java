@@ -7,6 +7,7 @@ import com.cluster.kubeclient.connect.JerseyRestfulClient;
 import com.cluster.kubeclient.connect.Params;
 import com.cluster.kubeclient.connect.ResourceType;
 import com.cluster.kubeclient.connect.RestfulClient;
+import com.cluster.kubeclient.handle.KubeHandle;
 import com.cluster.kubeclient.handle.KubeUtil;
 import com.cluster.kubeclient.redis.RedisMonitor;
 import com.cluster.server.model.RedisCluster;
@@ -72,16 +73,10 @@ public class ClusterInstanceHandle implements ClusterInstancePort {
 	public RedisCluster createCluster() {
 		System.out.println("http://localhost:8080/RedisCluster/restfulService/instances/createCluster");
 		RedisCluster redisCluster=new RedisCluster();
-		RestfulClient _restfulClient=new JerseyRestfulClient("http://123.207.6.42:8080/api/v1");
-		Params params=new Params();
-		params.setResourceType(ResourceType.PELICATIONCONTROLLERS);
-		KubeUtil kubeUtil=new KubeUtil();
-		String hello=kubeUtil.ReadFile("source/frontend-controller.json");	
-	    params.setJson(hello);
-	    System.out.println(hello);
-	    params.setNamespace("default");
-	    
-	    System.out.print(_restfulClient.create(params));		
+		KubeHandle kubehandle=new KubeHandle();
+		kubehandle.getRC();
+		kubehandle.createSVC();
+		
 		return redisCluster;
 	}
 
