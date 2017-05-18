@@ -6,12 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RedisCluster {
 	int id;   //集群ID
 	String created_time; //创建时间
-	int memory_total;  //总内存
-	int memory_using;  //已用内存
+	String allocated_memory;  //总内存
+    String used_memory;  //已用内存
 	String name;   //集群名称
-	boolean state; //集群状态
-	String username;  //集群所属用户名
-	
+	int state; //集群状态
+	String userName;  //集群所属用户名
 	public int getId() {
 		return id;
 	}
@@ -24,17 +23,17 @@ public class RedisCluster {
 	public void setCreated_time(String created_time) {
 		this.created_time = created_time;
 	}
-	public int getMemory_total() {
-		return memory_total;
+	public String getAllocated_memory() {
+		return allocated_memory;
 	}
-	public void setMemory_total(int memory_total) {
-		this.memory_total = memory_total;
+	public void setAllocated_memory(String allocated_memory) {
+		this.allocated_memory = allocated_memory;
 	}
-	public int getMemory_using() {
-		return memory_using;
+	public String getUsed_memory() {
+		return used_memory;
 	}
-	public void setMemory_using(int memory_using) {
-		this.memory_using = memory_using;
+	public void setUsed_memory(String used_memory) {
+		this.used_memory = used_memory;
 	}
 	public String getName() {
 		return name;
@@ -42,16 +41,17 @@ public class RedisCluster {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public boolean isState() {
+	public int getState() {
 		return state;
 	}
-	public void setState(boolean state) {
+	public void setState(int state) {
 		this.state = state;
 	}
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+		
 }

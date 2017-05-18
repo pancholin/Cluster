@@ -1,10 +1,12 @@
 package com.cluster.server.pojo;
 
-public class Constant {
+public class DBConstant {
 	
 	public  final String DB="kubecluster";//在MySQL中定义的数据库名字
 	public  final String USER_TABLE="user";//在MySQL中定义的表
-	public  final String REDISCLUSTER_TABLE="rediscluster"; //
+	public  final String REDISCLUSTER_TABLE="redis_cluster"; //
+	public  final String CLUSTERLINK_TABLE="cluster_link";
+	
 	
 	public  final String JDBC_DRIVER="com.mysql.jdbc.Driver";//驱动器
 	public  final String url="jdbc:mysql://localhost:3306/"+DB+"?useUnicode=true&characterEncoding=utf-8&useSSL=false";//地址

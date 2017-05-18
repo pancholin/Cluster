@@ -1,5 +1,6 @@
 package com.cluster.server.pojo;
 
+import com.cluster.server.model.RedisCluster;
 import com.cluster.server.model.User;
 
 public class Test {
@@ -16,9 +17,25 @@ public class Test {
 		MysqlConn con=new MysqlConn();
 		SqlResponse res=con.insert(sql);
 		System.out.println(res.getStateCode());*/
-		UserDao userdao =new UserDao();
+		/*UserDao userdao =new UserDao();
 		User user=new User();
-		user=userdao.getUserByname("linpanxue");
+		user=userdao.getUserByname("linpanxue");*/
+		
+		TBRedisClusterDao redisdao=new TBRedisClusterDao();
+		/*RedisCluster redis=new RedisCluster();
+		redis.setMemory_total("10G");
+		redis.setMemory_using("0k");
+		redis.setName("¼¯Èº1");
+		redis.setState(1);
+		redis.setUsername("linpanxue");
+		redisdao.insert(redis);*/
+		
+		RedisCluster redis=redisdao.getRedisclusterByUsername("linpanxue").get(0);
+		System.out.println(redis.getId()+redis.getAllocated_memory()+redis.getUsed_memory()+redis.getName()+redis.getUserName());
+		
+		
+		
+		
 	}
 
 }

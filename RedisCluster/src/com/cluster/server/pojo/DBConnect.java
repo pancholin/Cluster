@@ -8,13 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.cluster.server.model.RedisCluster;
 import com.cluster.server.model.User;
 
 
 
 
-public class MysqlConn {
+public class DBConnect {
 	Connection Con=null;
 	Statement st=null;
 	ResultSet rs=null;
@@ -23,7 +23,7 @@ public class MysqlConn {
 	 * @return COnnection
 	 * */
 	public Connection getCon(){
-		Constant constant=new Constant();
+		DBConstant constant=new DBConstant();
 		try {
 			try {
 				Class.forName(constant.JDBC_DRIVER);
@@ -69,6 +69,44 @@ public class MysqlConn {
 			return null;
 		}	
 	};
+	
+	/**对User表执行查询语句
+	 * @return List<User>
+	 * */
+	public List<RedisCluster>executeRedisCluster(String sql){
+		List<RedisCluster>list=new ArrayList<RedisCluster>();
+		Connection con=getCon();
+		if(con!=null){
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery(sql);
+			while(rs.next()){
+				RedisCluster redisCluster=new RedisCluster();
+				System.out.println(rs.getInt(1)+" "+rs.getTimestamp(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getInt(6)+" "+rs.getString(7));	
+				redisCluster.setId(rs.getInt(1));	
+				redisCluster.setCreated_time(rs.getTimestamp(2).toString());
+				redisCluster.setAllocated_memory(rs.getString(3));
+				redisCluster.setUsed_memory(rs.getString(4));
+				redisCluster.setName(rs.getString(5));
+				redisCluster.setState(rs.getInt(6));
+				redisCluster.setUserName(rs.getString(7));
+				list.add(redisCluster);
+			};
+		    } catch (SQLException e) {
+			  e.printStackTrace();
+			  }
+		     return list;
+		}
+		else{
+			return null;
+		}	
+	};
+	
+	
+	
+	
+	
+	
 	
 	public SqlResponse insert(String sql){
 		SqlResponse re=new SqlResponse();

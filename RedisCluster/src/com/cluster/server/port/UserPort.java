@@ -46,4 +46,15 @@ public interface UserPort {
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
 	public User getUserInformation(@PathParam("name") String name);
+	
+	/*
+	 * 实现注销功能
+	 * @return Response
+	 */
+	@GET
+	@Path("/logout")
+	@Consumes({"application/xml","application/json"})
+	@Produces({"application/xml","application/json"})
+	public User logout();
+	
 }

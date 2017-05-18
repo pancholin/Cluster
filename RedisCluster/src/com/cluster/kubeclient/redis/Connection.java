@@ -52,6 +52,7 @@ public class Connection {
 		Call caller = new Call();  
         caller.setCallFunc(new JedisPool(config,"120.24.72.117",6379));  
         String info=caller.call(); 
+        
 		return info;				
 	}
 	

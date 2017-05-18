@@ -36,6 +36,20 @@ public class KubeUtil {
     }  
 	
 	
+	public String getRCJson(){
+		String str="{\"kind\":\"ReplicationController\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"redis-master\",\"labels\":{\"name\":\"redis-master\"}},\"spec\":{\"replicas\":1,\"selector\":{\"name\":\"redis-master\"},\"template\":{\"metadata\":{\"labels\":{\"name\":\"redis-master\"}},\"spec\":{\"containers\":[{\"name\":\"master\",\"image\":\"redis\",\"ports\":[{\"containerPort\":6379}]}]}}}}";
+		
+		return str;	
+	}
+	
+	
+	public String getSVCJson(){
+		String str="{\"metadata\":{\"name\":\"redis-master\",\"labels\":{\"name\":\"redis-master\"}},\"apiVersion\":\"v1\",\"kind\":\"Service\",\"spec\":{\"selector\":{\"name\":\"redis-master\"},\"ports\":[{\"port\":6379,\"targetPort\":6390}]}}";
+		return str;
+	}
+	
+	
+	
 	
 	
 	

@@ -14,7 +14,7 @@ public class KubeHandle {
 		Params params=new Params();
 		params.setResourceType(ResourceType.PELICATIONCONTROLLERS);
 		KubeUtil kubeUtil=new KubeUtil();
-		String hello="{\"kind\":\"ReplicationController\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"redis-master\",\"labels\":{\"name\":\"redis-master\"}},\"spec\":{\"replicas\":1,\"selector\":{\"name\":\"redis-master\"},\"template\":{\"metadata\":{\"labels\":{\"name\":\"redis-master\"}},\"spec\":{\"containers\":[{\"name\":\"master\",\"image\":\"redis\",\"ports\":[{\"containerPort\":6379}]}]}}}}";	
+		String hello=kubeUtil.getRCJson();	
 	    params.setJson(hello);
 	    System.out.println(hello);
 	    params.setNamespace("default");
@@ -30,7 +30,7 @@ public class KubeHandle {
 		Params params=new Params();
 		params.setResourceType(ResourceType.SERVICES);
 		KubeUtil kubeUtil=new KubeUtil();
-		String hello="{\"metadata\":{\"name\":\"redis-master\",\"labels\":{\"name\":\"redis-master\"}},\"apiVersion\":\"v1\",\"kind\":\"Service\",\"spec\":{\"selector\":{\"name\":\"redis-master\"},\"ports\":[{\"port\":6379,\"targetPort\":6390}]}}";	
+		String hello=kubeUtil.getSVCJson();	
 	    params.setJson(hello);
 	    System.out.println(hello);
 	    params.setNamespace("default");

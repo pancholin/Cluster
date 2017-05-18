@@ -3,6 +3,10 @@ package com.cluster.server.handle;
 
 import java.util.Map;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
+
 import com.cluster.kubeclient.connect.JerseyRestfulClient;
 import com.cluster.kubeclient.connect.Params;
 import com.cluster.kubeclient.connect.ResourceType;
@@ -20,7 +24,7 @@ import redis.clients.jedis.JedisPool;
 
 
 public class ClusterInstanceHandle implements ClusterInstancePort {
-
+	@Context HttpServletRequest request; 
 	
 	@Override
 	public RedisInformation getInstance()  {
@@ -72,12 +76,37 @@ public class ClusterInstanceHandle implements ClusterInstancePort {
 	@Override
 	public RedisCluster createCluster() {
 		System.out.println("http://localhost:8080/RedisCluster/restfulService/instances/createCluster");
-		RedisCluster redisCluster=new RedisCluster();
-		KubeHandle kubehandle=new KubeHandle();
-		kubehandle.getRC();
-		kubehandle.createSVC();
 		
+		System.out.println(request.getSession().getAttribute("name"));
+		String name=(String) request.getSession().getAttribute("name");
+		
+		
+		RedisCluster redisCluster=new RedisCluster();
+		/*KubeHandle kubehandle=new KubeHandle();
+		kubehandle.getRC();
+		kubehandle.createSVC();*/
 		return redisCluster;
+	}
+
+	@Override
+	public RedisCluster deleteCluster() {
+		// TODO Auto-generated method stub
+		
+		
+		return null;
+	}
+
+	@Override
+	public RedisCluster modifyCluster() {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
+	@Override
+	public RedisCluster GetClusterList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
