@@ -11,9 +11,6 @@ import java.util.List;
 import com.cluster.server.model.RedisCluster;
 import com.cluster.server.model.User;
 
-
-
-
 public class DBConnect {
 	Connection Con=null;
 	Statement st=null;
@@ -105,7 +102,29 @@ public class DBConnect {
 	
 	
 	
-	
+	public SqlResponse insertAndGetId(String sql){
+		SqlResponse re=new SqlResponse();
+		Connection con=getCon();
+		try {
+			Statement st=con.createStatement();
+			st.execute(sql);
+			ResultSet rs=st.executeQuery("SELECT LAST_INSERT_ID()");
+			while(rs.next()){
+				re.setStateCode(rs.getInt(1));
+			};
+            re.setMessage("success");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("error!插入失败");
+			re.setStateCode(400);
+			re.setMessage(e.toString());
+			return re;
+			
+		}
+		close();
+		return re;
+	};
 	
 	
 	public SqlResponse insert(String sql){
@@ -129,6 +148,60 @@ public class DBConnect {
 		close();
 		return re;
 	};
+	
+	/**内部函数，执行删除语句
+	 * @param sql 删除语句  举例说明：delete from rediscluster where id=2;
+	 * @return List<Score>
+	 * */
+	public SqlResponse delete(String sql){
+		
+		SqlResponse res=new SqlResponse();
+		DBConnect cdb=new DBConnect();
+		Connection con=cdb.getCon();
+		
+		try {
+			Statement st=con.createStatement();
+			st.execute(sql);
+			res.setStateCode(200);
+			res.setMessage("删除成功");
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			System.out.println("error!删除失败");
+			res.setStateCode(400);
+			res.setMessage(e.toString());
+			return res;
+		}
+		cdb.close();
+		return res;
+	};
+	
+	/**内部函数，执行更新语句
+	 * @param sql 更新语句  举例说明：delete from rediscluster where id=2;
+	 * @return List<Score>
+	 * */
+	public SqlResponse update(String sql){
+		SqlResponse re=new SqlResponse();
+		DBConnect cdb=new DBConnect();
+		Connection con=cdb.getCon();
+		if(con==null){re.setStateCode(401);re.setMessage("dateBase not connection");}
+		try {
+			Statement st=con.createStatement();
+			st.execute(sql);
+			re.setStateCode(200);
+			re.setMessage("更新成功");
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			System.out.println("error!更新失败");
+			re.setStateCode(400);
+			re.setMessage(e.toString());
+			return re;
+		}
+		cdb.close();
+		return re;
+	};
+	
 	
 	
 	/*

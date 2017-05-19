@@ -16,7 +16,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
 <import resource="classpath:META-INF/cxf/cxf.xml" />
 <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  
      
-        <bean id="clusterServer" class="com.cluster.server.handle.ClusterInstanceHandle"></bean>
+        <bean id="clusterServer" class="com.cluster.server.handle.RedisInstanceHandle"></bean>
         <bean id="userServer" class="com.cluster.server.handle.UserHandle"/>
          <bean id="testServer" class="com.cluster.server.handle.TestHandle"/>
         <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>

@@ -11,7 +11,7 @@ public class TBRedisClusterDao {
 		String sql="insert into "+constant.REDISCLUSTER_TABLE+" (allocated_memory,used_memory,name,state,username)"
 				+ "values('"+redisCluster.getAllocated_memory()+"','"+redisCluster.getUsed_memory()+"','"+redisCluster.getName()+"','"+redisCluster.getState()+"','"+redisCluster.getUserName()+"')";
 		DBConnect con=new DBConnect();
-		SqlResponse res=con.insert(sql);
+		SqlResponse res=con.insertAndGetId(sql);
 		return res;
 		}
 		

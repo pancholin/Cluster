@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cluster.server.handle.ClusterInstanceHandle;
+import com.cluster.server.handle.RedisInstanceHandle;
 
 
 
@@ -14,7 +14,7 @@ public class RedisTest {
 
 	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
-	 ClusterInstanceHandle cluster=new ClusterInstanceHandle();
+	 RedisInstanceHandle cluster=new RedisInstanceHandle();
 	 
      System.out.println(cluster.getInstance().getConnection_blocker());
 	

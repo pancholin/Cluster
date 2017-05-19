@@ -16,14 +16,16 @@ import com.cluster.kubeclient.handle.KubeUtil;
 import com.cluster.kubeclient.redis.RedisMonitor;
 import com.cluster.server.model.RedisCluster;
 import com.cluster.server.model.RedisInformation;
-import com.cluster.server.port.ClusterInstancePort;
+import com.cluster.server.pojo.SqlResponse;
+import com.cluster.server.pojo.TBRedisClusterDao;
+import com.cluster.server.port.RedisInstancePort;
 
 import redis.clients.jedis.Jedis;
 
 import redis.clients.jedis.JedisPool;
 
 
-public class ClusterInstanceHandle implements ClusterInstancePort {
+public class RedisInstanceHandle implements RedisInstancePort {
 	@Context HttpServletRequest request; 
 	
 	@Override
@@ -78,18 +80,32 @@ public class ClusterInstanceHandle implements ClusterInstancePort {
 		System.out.println("http://localhost:8080/RedisCluster/restfulService/instances/createCluster");
 		
 		System.out.println(request.getSession().getAttribute("name"));
-		String name=(String) request.getSession().getAttribute("name");
-		
-		
+		String user_name=(String) request.getSession().getAttribute("name");
+		/*
+		 * insert the information to the table RedisClusterTable
+		 */
 		RedisCluster redisCluster=new RedisCluster();
-		/*KubeHandle kubehandle=new KubeHandle();
+		redisCluster.setAllocated_memory("1G");
+		redisCluster.setName("redis¼¯Èº");
+		redisCluster.setState(1);
+		redisCluster.setUsed_memory("8K");
+		redisCluster.setUserName(user_name);
+		
+		TBRedisClusterDao redisdao=new TBRedisClusterDao();
+		SqlResponse sqlresponse=redisdao.insert(redisCluster);
+		int clusterId=sqlresponse.getStateCode();
+		
+		redisCluster=null;
+		RedisCluster redisClusterNew=redisdao.getRedisClusterById(clusterId);
+		/*
+		 * KubeHandle kubehandle=new KubeHandle();
 		kubehandle.getRC();
 		kubehandle.createSVC();*/
-		return redisCluster;
+		return redisClusterNew;
 	}
 
 	@Override
-	public RedisCluster deleteCluster() {
+	public RedisCluster deleteCluster(int i) {
 		// TODO Auto-generated method stub
 		
 		

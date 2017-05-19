@@ -1,10 +1,12 @@
 package com.cluster.server.port;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -17,7 +19,7 @@ import com.cluster.server.model.RedisInformation;
 @Path("/instances")
 @Consumes({"application/xml","application/json"})
 @Produces({"application/xml","application/json"})
-public interface ClusterInstancePort {
+public interface RedisInstancePort {
 	/*
 	 * 获取集群的监控信息
 	 */
@@ -47,11 +49,11 @@ public interface ClusterInstancePort {
 	/*
 	 * 删除一个集群
 	 */
-	@POST
-	@Path("/deleteCluster")
+	@DELETE
+	@Path("/deleteCluster/{id}")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public RedisCluster deleteCluster();
+	public RedisCluster deleteCluster(@PathParam("id") int id);
 	
 	/*
 	 * 修改一个集群信息
