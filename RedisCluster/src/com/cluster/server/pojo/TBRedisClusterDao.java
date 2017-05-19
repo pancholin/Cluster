@@ -38,5 +38,13 @@ public class TBRedisClusterDao {
 		con.close();
 		return list;
 		}
+	
+	public SqlResponse delete(int id){
+		DBConstant c=new DBConstant();
+		DBConnect conn=new DBConnect();
+		String sql="delete from "+c.REDISCLUSTER_TABLE+" where id="+id;
+		return conn.delete(sql);
+	}
+
 }
 

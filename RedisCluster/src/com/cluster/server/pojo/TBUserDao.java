@@ -4,7 +4,7 @@ import java.util.List;
 import com.cluster.server.model.User;
 
 public class TBUserDao {
-	
+
 	public SqlResponse insert(User user){
 	DBConstant c=new DBConstant();
 	String sql="insert into "+c.USER_TABLE+" (name,password,email)"
@@ -45,7 +45,7 @@ public class TBUserDao {
 	public SqlResponse update(User user){
 		DBConstant c=new DBConstant();
 		DBConnect conn=new DBConnect();
-		String sql="update "+c.USER_TABLE+" set email='"+user.getEmail()+"', password='"+user.getPassword()+"' where name="+user.getName();
+		String sql="update "+c.USER_TABLE+" set email='"+user.getEmail()+"', password='"+user.getPassword()+"' where name= '"+user.getName()+"'";
 		return conn.update(sql);
 	}
 

@@ -1,6 +1,7 @@
 package com.cluster.server.handle;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.Session;
@@ -15,6 +16,7 @@ import com.cluster.kubeclient.handle.KubeHandle;
 import com.cluster.kubeclient.handle.KubeUtil;
 import com.cluster.kubeclient.redis.RedisMonitor;
 import com.cluster.server.model.RedisCluster;
+
 import com.cluster.server.model.RedisInformation;
 import com.cluster.server.pojo.SqlResponse;
 import com.cluster.server.pojo.TBRedisClusterDao;
@@ -105,10 +107,11 @@ public class RedisInstanceHandle implements RedisInstancePort {
 	}
 
 	@Override
-	public RedisCluster deleteCluster(int i) {
+	public RedisCluster deleteCluster(int id) {
 		// TODO Auto-generated method stub
-		
-		
+		TBRedisClusterDao redisdao=new TBRedisClusterDao();
+		SqlResponse sqlresponse=redisdao.delete(id);
+		System.out.println(sqlresponse.getMessage());
 		return null;
 	}
 
@@ -120,9 +123,14 @@ public class RedisInstanceHandle implements RedisInstancePort {
 	}
 
 	@Override
-	public RedisCluster GetClusterList() {
+	public List<RedisCluster> GetClusterList() {
 		// TODO Auto-generated method stub
-		return null;
+		String userName=(String) request.getSession().getAttribute("name");
+		TBRedisClusterDao redisdao=new TBRedisClusterDao();
+		//RedisClusterList redisClusterList=new RedisClusterList();
+		//redisClusterList.setRedisClusterList(redisdao.getRedisclusterByUsername(userName));
+		List<RedisCluster> list=redisdao.getRedisclusterByUsername(userName);
+		return list;
 	}
 
 }
