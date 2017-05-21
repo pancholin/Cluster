@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import com.cluster.server.model.User;
+import com.cluster.server.model.TBUser;
 
 @Path("/Test")
 
@@ -20,6 +20,6 @@ public interface TestPort {
 	@GET
 	@Produces({"application/xml","application/json"})
 	@Path("/create")
-	User create();
+	TBUser create();
  
 }

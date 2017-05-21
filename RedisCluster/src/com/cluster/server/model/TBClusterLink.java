@@ -1,6 +1,6 @@
 package com.cluster.server.model;
 
-public class ClusterLink {
+public class TBClusterLink {
 	int clusterId;  //集群ID
 	String link;    //集群中redis数据库连接，以逗号分割
 	int number;     //集群中数据库数量
@@ -24,8 +24,4 @@ public class ClusterLink {
 		this.number = number;
 	}
 	
-	
-	
-	
-
 }

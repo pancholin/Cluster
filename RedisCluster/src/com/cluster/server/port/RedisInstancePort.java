@@ -12,9 +12,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.cluster.server.model.RedisCluster;
+import com.cluster.server.model.TBRedisCluster;
 
 import com.cluster.server.model.RedisInformation;
+import com.cluster.server.model.ResRedisCluster;
+import com.cluster.server.model.Response;
 
 
 
@@ -27,7 +29,7 @@ public interface RedisInstancePort {
 	 * 获取集群的监控信息
 	 */
 	@GET
-	@Path("/getInstance")
+	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces({"application/xml","application/json"})
 	public RedisInformation getInstance() ;
@@ -44,35 +46,33 @@ public interface RedisInstancePort {
 	 * 创建一个集群
 	 */
 	@POST
-	@Path("/createCluster")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public RedisCluster createCluster();
+	public TBRedisCluster createCluster();
 	
 	/*
 	 * 删除一个集群
 	 */
 	@DELETE
-	@Path("/deleteCluster/{id}")
+	@Path("/{id}")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public RedisCluster deleteCluster(@PathParam("id") int id);
+	public TBRedisCluster deleteCluster(@PathParam("id") int id);
 	
 	/*
 	 * 修改一个集群信息
 	 */
 	@PUT
-	@Path("/modifyCluster")
+	
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public RedisCluster modifyCluster();
+	public Response modifyCluster(ResRedisCluster resRedisCluster);
 	
 	/*
 	 * 获取及群列表
 	 */
 	@GET
-	@Path("/getClusterList")
 	@Consumes({"application/xml","application/json"})
 	@Produces({"application/xml","application/json"})
-	public List<RedisCluster> GetClusterList();
+	public List<ResRedisCluster> GetClusterList();
 }

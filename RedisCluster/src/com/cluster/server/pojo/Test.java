@@ -1,7 +1,7 @@
 package com.cluster.server.pojo;
 
-import com.cluster.server.model.RedisCluster;
-import com.cluster.server.model.User;
+import com.cluster.server.model.TBRedisCluster;
+import com.cluster.server.model.TBUser;
 
 public class Test {
 
@@ -30,7 +30,7 @@ public class Test {
 		redis.setUsername("linpanxue");
 		redisdao.insert(redis);*/
 		
-		RedisCluster redis=redisdao.getRedisclusterByUsername("linpanxue").get(0);
+		TBRedisCluster redis=redisdao.getRedisclusterByUsername("linpanxue").get(0);
 		System.out.println(redis.getId()+redis.getAllocated_memory()+redis.getUsed_memory()+redis.getName()+redis.getUserName());
 		
 		

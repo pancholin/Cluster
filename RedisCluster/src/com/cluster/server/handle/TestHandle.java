@@ -9,7 +9,8 @@ import javax.ws.rs.core.Context;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
-import com.cluster.server.model.User;
+import com.cluster.kubeclient.handle.KubeHandle;
+import com.cluster.server.model.TBUser;
 import com.cluster.server.port.TestPort;
 
 public class TestHandle implements TestPort {
@@ -18,18 +19,14 @@ public class TestHandle implements TestPort {
     
     
 	@Override
-	public User create() {
+	public TBUser create() {
 		//获得HTTP的SESSION  
-	    HttpSession session =request.getSession();  
-	    //这只是一个统计变量  
-	    String change =(String) session.getAttribute("email");  
-	    
-	    System.out.println(change);
-	    session.removeAttribute("accout");
-		//System.out.println(name);
-		User user=new User();
+	    KubeHandle kubeHandle=new KubeHandle();
+	    System.out.println(kubeHandle.getNodePort());
+		
+		TBUser user=new TBUser();
 		user.setName("hefl");
-		user.setEmail(session.getId());
+		user.setEmail("fajlfjl");
 		user.setPassword("name");
 		return user;
 	}

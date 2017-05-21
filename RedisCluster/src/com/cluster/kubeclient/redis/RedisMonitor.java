@@ -19,6 +19,7 @@ public class RedisMonitor {
 				String[] str = s.split(":");
 				if (str != null && str.length > 1) {
 					m1.put(str[0],str[1]);
+					System.out.println(str[0]+" "+str[1]);
 				}
 			}
 		}

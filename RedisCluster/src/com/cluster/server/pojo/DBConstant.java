@@ -9,10 +9,10 @@ public class DBConstant {
 	
 	
 	public  final String JDBC_DRIVER="com.mysql.jdbc.Driver";//驱动器
-	public  final String url="jdbc:mysql://localhost:3306/"+DB+"?useUnicode=true&characterEncoding=utf-8&useSSL=false";//地址
+	public  final String url="jdbc:mysql://123.207.6.42:3306/"+DB+"?useUnicode=true&characterEncoding=utf-8&useSSL=false";//地址
 	//120.77.46.44
 	public  final String SQL_USER_NAME="root";//MYSQL中配置的用户名
-	public  final String SQL_PASSWORD="linpanxue";//MYSQL中配置的用户登录密码
+	public  final String SQL_PASSWORD="qnmdlpx";//MYSQL中配置的用户登录密码
 	
 	
 }

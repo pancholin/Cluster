@@ -1,11 +1,11 @@
 package com.cluster.server.pojo;
 
 import java.util.List;
-import com.cluster.server.model.User;
+import com.cluster.server.model.TBUser;
 
 public class TBUserDao {
 
-	public SqlResponse insert(User user){
+	public SqlResponse insert(TBUser user){
 	DBConstant c=new DBConstant();
 	String sql="insert into "+c.USER_TABLE+" (name,password,email)"
 			+ "values('"+user.getName()+"','"+user.getPassword()+"','"+user.getEmail()+"')";
@@ -14,14 +14,14 @@ public class TBUserDao {
 	return res;
 	}
 	
-	public User getUserByemail(String email) {
+	public TBUser getUserByemail(String email) {
 		DBConstant constant=new DBConstant();
 		String sql="select * from "+constant.USER_TABLE+" where email='"+email+"'";
 		System.out.println(sql);
 		DBConnect con=new DBConnect();
-		List<User> list=con.executeUser(sql);
+		List<TBUser> list=con.executeUser(sql);
 		con.close();
-		User user=null;
+		TBUser user=null;
 		if(!list.isEmpty()){
 			user=list.get(0);
 		    }
@@ -42,7 +42,7 @@ public class TBUserDao {
 	/*
 	 * update the information of user and get the response
 	 */
-	public SqlResponse update(User user){
+	public SqlResponse update(TBUser user){
 		DBConstant c=new DBConstant();
 		DBConnect conn=new DBConnect();
 		String sql="update "+c.USER_TABLE+" set email='"+user.getEmail()+"', password='"+user.getPassword()+"' where name= '"+user.getName()+"'";

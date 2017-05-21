@@ -17,7 +17,7 @@ public class RedisTest {
 	 RedisInstanceHandle cluster=new RedisInstanceHandle();
 	 
      System.out.println(cluster.getInstance().getConnection_blocker());
-	
+	 
 		
 		
 		/*Connection conn=new Connection();

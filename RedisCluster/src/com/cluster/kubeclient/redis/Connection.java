@@ -13,12 +13,15 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 
 
 public class Connection {
-	public JedisPool getPool(String url) {
+	/*
+	 * 获取redis连接池
+	 */
+	public JedisPool getPool(String url,int port) {
         JedisPoolConfig config = new JedisPoolConfig();
 		config.setMaxActive(100);
 		config.setMaxIdle(20);
 		config.setMaxWait(1000l);	
-		JedisPool pool = new JedisPool(config,url,6379);
+		JedisPool pool = new JedisPool(config,url,port);
 	  return pool;
 	}
 
@@ -26,36 +29,18 @@ public class Connection {
 	/*
 	 * get info
 	 */
-	public String getRedisInfo()  {
-		
-		/*boolean borrowOrOprSuccess = true;
-		String info=null;
-		JedisPool pool=getPool("120.24.72.117");
-		Jedis jedis=null;
-		try {
-		  
-		} 
-		catch (JedisConnectionException e) {
-			borrowOrOprSuccess = false;
-			if (jedis != null)
-				pool.returnBrokenResource(jedis);
- 
-		} 
-		finally {
-			if (borrowOrOprSuccess)
-				pool.returnResource(jedis);
-		}*/
-		JedisPoolConfig config = new JedisPoolConfig();
-		config.setMaxActive(100);
-		config.setMaxIdle(20);
-		config.setMaxWait(1000l);	
-		Call caller = new Call();  
-        caller.setCallFunc(new JedisPool(config,"120.24.72.117",6379));  
-        String info=caller.call(); 
-        
+	public String getRedisInfo()  {	    
+        Jedis jedis =new Jedis("120.24.72.117",6379);
+        String info=jedis.info(); 
+        jedis.disconnect();
 		return info;				
 	}
 	
-	
+	public Long getDbSize(){ 
+        Jedis jedis =new Jedis("120.24.72.117",6379);
+        Long l=jedis.dbSize();
+       jedis.disconnect(); 		
+		return l;
+	}
 
 }

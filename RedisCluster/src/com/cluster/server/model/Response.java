@@ -2,7 +2,7 @@ package com.cluster.server.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="User") 
+@XmlRootElement(name="Response") 
 public class Response {
 	
 	private int status;
@@ -21,6 +21,4 @@ public class Response {
 		this.message = message;
 	}
 	
-	
-
 }

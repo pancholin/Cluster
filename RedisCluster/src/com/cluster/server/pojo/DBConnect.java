@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cluster.server.model.RedisCluster;
-import com.cluster.server.model.User;
+import com.cluster.server.model.TBRedisCluster;
+import com.cluster.server.model.TBUser;
 
 public class DBConnect {
 	Connection Con=null;
@@ -42,15 +42,15 @@ public class DBConnect {
 	/**对User表执行查询语句
 	 * @return List<User>
 	 * */
-	public List<User>executeUser(String sql){
-		List<User>list=new ArrayList<User>();
+	public List<TBUser>executeUser(String sql){
+		List<TBUser>list=new ArrayList<TBUser>();
 		Connection con=getCon();
 		if(con!=null){
 		try {
 			st=con.createStatement();
 			rs=st.executeQuery(sql);
 			while(rs.next()){
-				User user=new User();
+				TBUser user=new TBUser();
 				System.out.println(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3));	
 				user.setName(rs.getString(1));
 				user.setPassword(rs.getString(2));
@@ -70,15 +70,15 @@ public class DBConnect {
 	/**对User表执行查询语句
 	 * @return List<User>
 	 * */
-	public List<RedisCluster>executeRedisCluster(String sql){
-		List<RedisCluster>list=new ArrayList<RedisCluster>();
+	public List<TBRedisCluster>executeRedisCluster(String sql){
+		List<TBRedisCluster>list=new ArrayList<TBRedisCluster>();
 		Connection con=getCon();
 		if(con!=null){
 		try {
 			st=con.createStatement();
 			rs=st.executeQuery(sql);
 			while(rs.next()){
-				RedisCluster redisCluster=new RedisCluster();
+				TBRedisCluster redisCluster=new TBRedisCluster();
 				System.out.println(rs.getInt(1)+" "+rs.getTimestamp(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getInt(6)+" "+rs.getString(7));	
 				redisCluster.setId(rs.getInt(1));	
 				redisCluster.setCreated_time(rs.getTimestamp(2).toString());

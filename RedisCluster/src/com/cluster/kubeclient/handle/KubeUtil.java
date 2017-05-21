@@ -35,21 +35,30 @@ public class KubeUtil {
         return laststr;  
     }  
 	
-	
-	public String getRCJson(){
-		String str="{\"kind\":\"ReplicationController\",\"apiVersion\":\"v1\",\"metadata\":{\"name\":\"redis-master\",\"labels\":{\"name\":\"redis-master\"}},\"spec\":{\"replicas\":1,\"selector\":{\"name\":\"redis-master\"},\"template\":{\"metadata\":{\"labels\":{\"name\":\"redis-master\"}},\"spec\":{\"containers\":[{\"name\":\"master\",\"image\":\"redis\",\"ports\":[{\"containerPort\":6379}]}]}}}}";
+	/*
+	 * 获取创建RC所需json字符串
+	 */
+	public String getRCJson(String name){
+		String str="{\"metadata\":{\"name\":\""+name+"\",\"labels\":{\"name\":\""+name+"\"}},\"apiVersion\":\"v1\",\"kind\":\"ReplicationController\",\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"name\":\""+name+"\"}},\"spec\":{\"containers\":[{\"image\":\"redis\",\"name\":\"master\",\"ports\":[{\"containerPort\":6389}]}]}},\"replicas\":1,\"selector\":{\"name\":\""+name+"\"}}}";
 		
 		return str;	
 	}
 	
-	
-	public String getSVCJson(){
-		String str="{\"metadata\":{\"name\":\"redis-master\",\"labels\":{\"name\":\"redis-master\"}},\"apiVersion\":\"v1\",\"kind\":\"Service\",\"spec\":{\"selector\":{\"name\":\"redis-master\"},\"ports\":[{\"port\":6379,\"targetPort\":6390}]}}";
+	/*
+	 * 获取创建SVC所需json字符串
+	 */
+	public String getSVCJson(String name){
+		String str="{\"metadata\":{\"name\":\""+name+"\",\"labels\":{\"name\":\""+name+"\"}},\"apiVersion\":\"v1\",\"kind\":\"Service\",\"spec\":{\"selector\":{\"name\":\""+name+"\"},\type\":\"NodePort\",\"ports\":[{\"port\":6389,\"nodePort\":8896}]}}";
+		
 		return str;
 	}
 	
-	
-	
+	/*
+	 * 获取创建RC、SVC所需标签，标签规则：命名规则：redis-用户名-集群id-位置i
+	 */
+	public String getName(String userName,int redisClusterId,int i){
+		return "redis-"+userName+"-"+redisClusterId+"-"+i;
+	}
 	
 	
 	

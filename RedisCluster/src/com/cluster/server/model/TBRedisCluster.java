@@ -3,7 +3,7 @@ package com.cluster.server.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="RedisCluster") 
-public class RedisCluster {
+public class TBRedisCluster {
 	int id;   //集群ID
 	String created_time; //创建时间
 	String allocated_memory;  //总内存
